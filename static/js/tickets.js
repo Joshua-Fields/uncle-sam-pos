@@ -7,7 +7,7 @@ function fetchTickets() {
       tickets.forEach(ticket => {
         const div = document.createElement('div');
         div.className = 'ticket';
-        const timeCreated = new Date(ticket.timestamp);
+        const timeCreated = new Date(ticket.timestamp); // Should parse UTC ISO string
         const elapsed = Math.floor((Date.now() - timeCreated.getTime()) / 1000);
 
         div.style.background = getColor(elapsed);

@@ -212,7 +212,7 @@ def summary():
 def submit_order():
     data = request.get_json()
     items = data['items']
-    timestamp = datetime.now().isoformat()
+    timestamp = datetime.now(timezone.utc).isoformat()
 
     with sqlite3.connect(DB_PATH) as conn:
         conn.execute('''
