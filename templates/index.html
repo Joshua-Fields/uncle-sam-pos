@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Uncle Sam's POS</title>
+  <link rel="icon" href="/static/img/corndog.png" type="image/png">
+  <link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body>
+  <header style="position: relative;">
+    <h1>
+      Uncle Sam's POS
+      <img src="/static/img/mascot.png" alt="Mascot" class="mascot-inline" />
+    </h1>
+    <a href="/admin" class="admin-btn">Admin</a>
+  </header>
+
+
+  <main>
+    <p style="text-align:center; margin-top:20px;">
+      <a href="/tickets"><button class="touch-button">📋 View Ticket Board</button></a>
+      <a href="/report"><button class="touch-button">📈 View Stats Report</button></a>
+    </p>
+
+
+
+    <div class="step">
+      <h2>Step 1: Choose Base</h2>
+      <button onclick="setBase('Hotdog')" data-icon="hotdog">Hotdog</button>
+      <button onclick="setBase('Cheese')" data-icon="cheese">Cheese</button>
+      <button onclick="setBase('Half & Half')" data-icon="half">Half & Half</button>
+    </div>
+
+    <div class="step">
+      <h2>Step 2: Choose Style</h2>
+      <button onclick="setStyle('Classic', 7.5)" data-icon="classic">Classic (£7.50)</button>
+      <button onclick="setStyle('Korean', 9)" data-icon="korean">Korean (£9.00)</button>
+      <button onclick="setStyle('Mexican', 9)" data-icon="mexican">Mexican (£9.00)</button>
+    </div>
+
+    <div class="step">
+      <h2>Extras</h2>
+      <button onclick="addExtra('Fries', 3)" data-icon="fries">Fries (£3.00)</button>
+      <button onclick="addExtra('Drink', 2)" data-icon="drink">Drink (£2.00)</button>
+      <button onclick="addExtra('Fresh Lemonade', 4.5)" data-icon="lemonade">Fresh Lemonade (£4.50)</button>
+    </div>
+
+    <div class="step">
+      <h2>Combos</h2>
+      <button onclick="addCombo(false)" data-icon="combo">Combo (Dog + Fries + Drink) (£11.50)</button>
+      <button onclick="addCombo(true)" data-icon="combo">Combo w/ Lemonade (£13.50)</button>
+    </div>
+
+    <section id="order-summary">
+      <h2>Current Order</h2>
+      <ul id="order-list"></ul>
+      <p><strong>Total: £<span id="total">0.00</span></strong></p>
+      <button onclick="finishOrder()">Finish Order</button>
+      <button onclick="clearOrder()">Clear Order</button>
+      <p id="status"></p>
+    </section>
+  </main>
+
+  <script src="/static/js/main.js"></script>
+</body>
+</html>

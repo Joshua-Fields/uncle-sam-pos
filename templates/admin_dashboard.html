@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="/static/css/style.css">
+  <link rel="icon" href="/static/img/corndog.png" type="image/png">
+  <style>
+    @font-face {
+      font-family: 'IntroRust';
+      src: url('/static/fonts/IntroRust-Baseline.otf') format('opentype');
+    }
+
+    body {
+      background-color: #e6f1ff;
+      font-family: 'Segoe UI', sans-serif;
+      color: #1a1a1a;
+      padding: 40px;
+      text-align: center;
+    }
+
+    h1, h2 {
+      font-family: 'IntroRust', sans-serif;
+      color: #d92c2c;
+    }
+
+    table {
+      margin: 0 auto;
+      border-collapse: collapse;
+      width: 95%;
+    }
+
+    th, td {
+      padding: 12px;
+      border: 1px solid #ccc;
+      text-align: left;
+    }
+
+    th {
+      background-color: #1e3a8a;
+      color: white;
+    }
+
+    td form {
+      margin: 0;
+    }
+
+    button {
+      background-color: #d92c2c;
+      color: white;
+      border: none;
+      padding: 8px 14px;
+      font-size: 1rem;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+
+    button:hover {
+      background-color: #b32121;
+    }
+
+    input[type="text"] {
+      padding: 8px;
+      margin-top: 10px;
+      border-radius: 6px;
+      border: 1px solid #999;
+      font-size: 1rem;
+    }
+
+    .flash-message {
+      background: #d9edf7;
+      color: #31708f;
+      padding: 12px 20px;
+      border-radius: 8px;
+      display: inline-block;
+      margin: 20px auto;
+      font-weight: bold;
+    }
+
+    .logout {
+      position: absolute;
+      top: 20px;
+      right: 40px;
+    }
+
+    .delete-multi {
+      margin: 20px 0;
+      background-color: #d92c2c;
+    }
+  </style>
+</head>
+<body>
+  <header style="position: relative; padding: 40px 0; text-align: center;">
+  <h1 style="font-family: 'IntroRust', sans-serif; color: #d92c2c; margin: 0;">🛠 Admin Panel</h1>
+  <a href="/" style="position: absolute; top: 50%; right: 40px; transform: translateY(-50%); text-decoration: none;">
+  <a class="logout" href="/admin/logout"><button>🚪 Logout</button></a>
+
+  </a>
+</header>
+
+
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <div class="flash-message">
+        {% for msg in messages %}
+          <p>{{ msg }}</p>
+        {% endfor %}
+      </div>
+    {% endif %}
+  {% endwith %}
+
+  <form method="post" action="/admin/delete_selected" onsubmit="return confirm('Delete selected orders?');">
+    <h2>📋 Order History</h2>
+    <table>
+      <thead>
+        <tr>
+          <th><input type="checkbox" id="select-all" onclick="toggleAll(this)"></th>
+          <th>ID</th>
+          <th>Order #</th>
+          <th>Total</th>
+          <th>Time</th>
+          <th>Items</th>
+          <th>❌</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for order in orders %}
+        <tr>
+          <td><input type="checkbox" name="delete_ids" value="{{ order.id }}"></td>
+          <td>{{ order.id }}</td>
+          <td>{{ order.display_number }}</td>
+          <td>£{{ "%.2f"|format(order.total) }}</td>
+          <td>{{ order.timestamp | datetimeformat }}</td>
+          <td>
+            {% for item in order.get("items", []) %}
+              {{ item.item }} (£{{ "%.2f"|format(item.price) }})<br>
+            {% endfor %}
+          </td>
+          <td>
+            <form method="post" action="/admin/delete_order/{{ order.id }}" onsubmit="return confirm('Are you sure you want to delete this order?');">
+              <button type="submit">🗑</button>
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <button type="submit" class="delete-multi">🗑 Delete Selected Orders</button>
+  </form>
+
+  <form method="post" action="/admin/reset_db" style="margin-top:30px;">
+    <h2 style="margin-top:40px;">⚠️ Full Reset</h2>
+    <label>Type 'RESET' to wipe all data:</label><br>
+    <input type="text" name="confirm" placeholder="RESET" required>
+    <br><button type="submit" onclick="return confirm('This will erase everything. Are you sure?');">Wipe Database</button>
+  </form>
+
+  <script>
+    function toggleAll(master) {
+      const boxes = document.querySelectorAll('input[name="delete_ids"]');
+      boxes.forEach(cb => cb.checked = master.checked);
+    }
+  </script>
+</body>
+</html>

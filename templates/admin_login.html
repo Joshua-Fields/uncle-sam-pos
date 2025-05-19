@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Login</title>
+  <link rel="stylesheet" href="/static/css/style.css">
+  <link rel="icon" href="/static/img/corndog.png" type="image/png">
+  <style>
+    @font-face {
+      font-family: 'IntroRust';
+      src: url('/static/fonts/IntroRust-Baseline.otf') format('opentype');
+    }
+
+    body {
+      background-color: #e6f1ff;
+      font-family: 'Segoe UI', sans-serif;
+      color: #1a1a1a;
+      padding: 60px 20px;
+      text-align: center;
+    }
+
+    h1 {
+      font-family: 'IntroRust', sans-serif;
+      font-size: 3rem;
+      color: #d92c2c;
+      margin-bottom: 10px;
+    }
+
+    .login-box {
+      background: white;
+      max-width: 400px;
+      margin: 40px auto;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 12px rgba(0,0,0,0.1);
+    }
+
+    input[type="password"] {
+      padding: 12px;
+      font-size: 1.1rem;
+      border-radius: 8px;
+      border: 1px solid #999;
+      width: 80%;
+      margin-bottom: 20px;
+    }
+
+    button {
+      background-color: #1e3a8a;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      font-size: 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #163070;
+    }
+
+    .error {
+      color: red;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+
+    .mascot-login {
+      height: 120px;
+      margin-top: 10px;
+      animation: bounceIn 1s ease;
+    }
+
+    @keyframes bounceIn {
+      0%   { transform: scale(0.5) translateY(-50%); opacity: 0; }
+      60%  { transform: scale(1.2) translateY(10%); opacity: 1; }
+      100% { transform: scale(1) translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <header style="position: relative; padding: 40px 0; text-align: center;">
+    <h1 style="font-family: 'IntroRust', sans-serif; color: #d92c2c; margin: 0;">🔐 Admin Login</h1>
+    <a href="/" style="position: absolute; top: 50%; right: 40px; transform: translateY(-50%); text-decoration: none;">
+      <button style="background-color: #4CAF50; color: white; padding: 10px 16px; border-radius: 6px;">← Back to POS</button>
+    </a>
+  </header>
+
+
+
+  <img src="/static/img/mascot.png" alt="Mascot" class="mascot-login" />
+
+  <div class="login-box">
+    <form method="POST" action="/admin">
+      <input type="password" name="pin" placeholder="Enter 4-digit PIN" maxlength="4" required><br>
+      <button type="submit">🔒 Unlock</button>
+    </form>
+    {% if error %}
+      <div class="error">{{ error }}</div>
+    {% endif %}
+  </div>
+
+</body>
+</html>

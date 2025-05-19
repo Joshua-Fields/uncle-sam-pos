@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Daily Report</title>
+  <link rel="stylesheet" href="/static/css/style.css" />
+  <link rel="icon" href="/static/img/corndog.png" type="image/png">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <header>
+    <h1>📈 Uncle Sam's Daily Report</h1>
+    <div style="text-align:center; margin-top:20px;">
+
+      <!-- Button Row -->
+      <div style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; margin-bottom: 20px;">
+        <button class="touch-button" onclick="toggleOrders()">📋 Show Past Orders</button>
+
+        <a href="/">
+          <a href="/"><button class="touch-button">← Back to Order Screen</button></a>
+        </a>
+
+        <button class="touch-button" onclick="exportReport()">📤 Download Report (CSV)</button>
+      </div>
+
+      <!-- Hidden Order History -->
+      <div id="order-history" style="display: none; max-width: 600px; margin: auto;">
+        <h3 style="text-align:center;">Past Orders</h3>
+        <ul id="order-list"></ul>
+      </div>
+
+    </div>
+
+
+
+  </header>
+  <main>
+    <div style="text-align:center; margin-bottom: 20px;">
+      <label for="filter">View Report For: </label>
+      <select id="filter" onchange="loadReport()">
+        <option value="day">Today</option>
+        <option value="week">This Week</option>
+        <option value="all">All Time</option>
+      </select>
+
+    </div>
+
+
+
+    <div id="report-container"></div>
+    <section style="max-width: 800px; margin: auto;">
+      <h2 style="text-align:center;">Visual Summary</h2>
+
+      <canvas id="ordersByHourChart"></canvas>
+      <canvas id="comboBreakdownChart" style="margin-top: 40px;"></canvas>
+      <canvas id="lemonadeChart" style="margin-top: 40px;"></canvas>
+      <canvas id="topItemsChart" style="margin-top: 40px;"></canvas>
+
+
+    </section>
+
+  </main>
+  <script src="/static/js/report.js"></script>
+</body>
+</html>

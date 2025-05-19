@@ -1,0 +1,347 @@
+/* Uncle Sam's POS – Branded Style with Animations and Icons */
+
+@font-face {
+  font-family: 'IntroRust';
+  src: url('/static/fonts/IntroRust-Baseline.otf') format('opentype');
+}
+
+body {
+  background-color: #e6f1ff;
+  font-family: 'Segoe UI', sans-serif;
+  margin: 0;
+  padding: 20px;
+  color: #1a1a1a;
+}
+
+header {
+  text-align: center;
+  padding: 20px 0;
+  background: white;
+  border-bottom: 4px solid #d92c2c;
+}
+
+header h1 {
+  font-family: 'IntroRust', sans-serif;
+  color: #d92c2c;
+  font-size: 3rem;
+  text-shadow: 1px 1px 2px #ffffff;
+  margin: 0;
+}
+
+main {
+  max-width: 800px;
+  margin: auto;
+}
+
+.step h2,
+#order-summary h2 {
+  font-family: 'IntroRust', sans-serif;
+  color: #1e3a8a;
+  font-size: 1.8rem;
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.step,
+#order-summary {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  margin: 20px 0;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  text-align: center;
+}
+
+.step button,
+#order-summary button {
+  display: inline-block;
+  padding: 16px 24px;
+  margin: 12px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 10px;
+  background-color: #d92c2c;
+  color: white;
+  min-width: 180px;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s, box-shadow 0.2s ease;
+  text-align: center;
+  box-shadow: 0 4px 0 #a12020;
+  position: relative;
+}
+
+.step button:hover,
+#order-summary button:hover {
+  background-color: #b32121;
+  box-shadow: 0 2px 0 #8e1a1a;
+}
+
+.step button:active,
+#order-summary button:active {
+  transform: scale(0.96);
+  box-shadow: none;
+  top: 2px;
+}
+
+.step button::before {
+  display: inline-block;
+  margin-right: 8px;
+  font-size: 1.2rem;
+}
+
+/* Custom emojis/icons */
+button[data-icon="hotdog"]::before { content: "🌭"; }
+button[data-icon="cheese"]::before { content: "🧀"; }
+button[data-icon="half"]::before { content: "🔀"; }
+button[data-icon="classic"]::before { content: "🇺🇸"; }
+button[data-icon="korean"]::before { content: "🇰🇷"; }
+button[data-icon="mexican"]::before { content: "🇲🇽"; }
+button[data-icon="fries"]::before { content: "🍟"; }
+button[data-icon="drink"]::before { content: "🥤"; }
+button[data-icon="lemonade"]::before { content: "🍋"; }
+button[data-icon="combo"]::before { content: "🎁"; }
+
+#order-summary h2 {
+  font-size: 1.6rem;
+  margin-bottom: 10px;
+}
+
+#order-list {
+  list-style-type: none;
+  padding-left: 0;
+  margin: 0 0 10px;
+  font-family: 'IntroRust', sans-serif;
+  font-size: 1.2rem;
+}
+
+#order-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 5px 0;
+  animation: flash-in 0.4s ease;
+  border-radius: 6px;
+  padding: 6px 10px;
+}
+
+@keyframes flash-in {
+  0% { background-color: #ffeaea; transform: scale(1.05); }
+  100% { background-color: #ffffff; transform: scale(1); }
+}
+
+#order-list button {
+  background: none;
+  border: none;
+  color: #d92c2c;
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+#total {
+  font-size: 1.5rem;
+  color: #1e3a8a;
+  text-align: center;
+  font-family: 'IntroRust', sans-serif;
+}
+
+#status {
+  margin-top: 10px;
+  font-size: 1rem;
+  color: green;
+  text-align: center;
+}
+
+.ticket {
+  background: white;
+  border-left: 5px solid #1e3a8a;
+  padding: 15px;
+  margin: 12px 0;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.ticket h3 {
+  font-family: 'IntroRust', sans-serif;
+  color: #d92c2c;
+  margin-top: 0;
+}
+
+.ticket ul {
+  padding-left: 20px;
+}
+
+.ticket button {
+  background-color: #d92c2c;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  font-size: 0.95rem;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+select {
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #aaa;
+  font-size: 1rem;
+  margin-bottom: 10px;
+}
+
+label {
+  font-weight: bold;
+  color: #1e3a8a;
+}
+
+.mascot-inline {
+  height: 100px;
+  vertical-align: middle;
+  margin-left: 12px;
+  animation: bounceIn 1s ease;
+}
+
+@keyframes bounceIn {
+  0%   { transform: scale(0.5) translateY(-50%); opacity: 0; }
+  60%  { transform: scale(1.2) translateY(10%); opacity: 1; }
+  100% { transform: scale(1) translateY(0); }
+}
+
+
+/* Report past order styling */
+
+#order-history {
+  text-align: center;
+  margin-top: 30px;
+}
+
+#order-list {
+  list-style: none;
+  padding-left: 0;
+  margin: 0 auto;
+  display: inline-block;
+  text-align: left;
+  max-width: 400px;
+  width: 100%;
+}
+
+#order-list li {
+  padding: 10px 16px;
+  margin-bottom: 8px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+/* Color-coding by amount */
+.order-green { background-color: #d4fcd4; }   /* £13.5 */
+.order-yellow { background-color: #fffcc8; }  /* £4 - £9.5 */
+.order-orange { background-color: #ffe4b2; }  /* £10 - £13 */
+
+/* Toggle content */
+.order-details {
+  font-weight: normal;
+  font-size: 0.95rem;
+  margin-top: 5px;
+  display: none;
+}
+
+.order-expanded .order-details {
+  display: block;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+#order-list li {
+  border-left: 8px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.order-green {
+  background-color: #a5d6a7; /* colorblind-friendly soft green */
+  border-color: #388e3c;
+}
+
+.order-yellow {
+  background-color: #ffd54f; /* bold amber */
+  border-color: #f9a825;
+}
+
+.order-orange {
+  background-color: #ffb74d; /* bold orange */
+  border-color: #ef6c00;
+}
+
+.admin-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background-color: #1e3a8a;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background 0.3s ease;
+}
+
+.admin-btn:hover {
+  background-color: #163070;
+}
+
+
+.touch-button {
+  padding: 18px 28px;
+  font-size: 1.3rem;
+  font-weight: bold;
+  border-radius: 12px;
+  background-color: #d92c2c; /* Uncle Sam red */
+  color: white;
+  border: none;
+  cursor: pointer;
+  margin: 12px;
+  display: inline-block;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+  box-shadow: 0 4px 0 #a12020;
+}
+
+.touch-button:hover {
+  background-color: #b32121;
+}
+
+.touch-button:active {
+  transform: scale(0.96);
+  box-shadow: none;
+}
+
+.touch-button-link {
+  display: inline-block;
+  background-color: #d92c2c;
+  color: white;
+  text-decoration: none;
+  padding: 16px 24px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  border-radius: 10px;
+  text-align: center;
+  min-width: 180px;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+.touch-button-link:hover {
+  background-color: #b32121;
+}
+
+.touch-button-link:active {
+  transform: scale(0.96);
+}
