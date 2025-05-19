@@ -94,7 +94,7 @@ def admin_dashboard():
                 'display_number': row[1],
                 'total': row[2],
                 'timestamp': row[3],  # Raw ISO string for logic or JS
-                'timestamp_pretty': datetimeformat(row[3])  # Pretty string for display
+                'timestamp_pretty': datetimeformat(row[3]),  # Pretty string for display
 
                 'items': items
             })
