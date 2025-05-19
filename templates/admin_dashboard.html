@@ -130,7 +130,7 @@
           <td>{{ order.id }}</td>
           <td>{{ order.display_number }}</td>
           <td>£{{ "%.2f"|format(order.total) }}</td>
-          <td>{{ order.timestamp | datetimeformat }}</td>
+          <td>{{ order.timestamp_pretty | datetimeformat }}</td>
           <td>
             {% for item in order.get("items", []) %}
               {{ item.item }} (£{{ "%.2f"|format(item.price) }})<br>

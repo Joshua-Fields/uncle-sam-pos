@@ -93,7 +93,9 @@ def admin_dashboard():
                 'id': row[0],
                 'display_number': row[1],
                 'total': row[2],
-                'timestamp': timestamp_pretty,
+                'timestamp': row[3],  # Raw ISO string for logic or JS
+                'timestamp_pretty': datetimeformat(row[3])  # Pretty string for display
+
                 'items': items
             })
     return render_template('admin_dashboard.html', orders=orders)
