@@ -109,45 +109,56 @@
     {% endif %}
   {% endwith %}
 
-  <form method="post" action="/admin/delete_selected" onsubmit="return confirm('Delete selected orders?');">
-    <h2>📋 Order History</h2>
-    <table>
-      <thead>
-        <tr>
-          <th><input type="checkbox" id="select-all" onclick="toggleAll(this)"></th>
-          <th>ID</th>
-          <th>Order #</th>
-          <th>Total</th>
-          <th>Time</th>
-          <th>Items</th>
-          <th>❌</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for order in orders %}
-        <tr>
-          <td><input type="checkbox" name="delete_ids" value="{{ order.id }}"></td>
-          <td>{{ order.id }}</td>
-          <td>{{ order.display_number }}</td>
-          <td>£{{ "%.2f"|format(order.total) }}</td>
-          <td>{{ order.timestamp_pretty | datetimeformat }}</td>
-          <td>
-            {% for item in order.get("items", []) %}
-              {{ item.item }} (£{{ "%.2f"|format(item.price) }})<br>
-            {% endfor %}
-          </td>
-          <td>
-            <form method="post" action="/admin/delete_order/{{ order.id }}" onsubmit="return confirm('Are you sure you want to delete this order?');">
-              <button type="submit">🗑</button>
-            </form>
-          </td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
+<form method="post" action="{{ url_for('delete_selected_orders') }}"
+      onsubmit="return confirm('Delete selected orders?');">
+  <h2>📋 Order History</h2>
+  <table>
+    <thead>
+      <tr>
+        <th><input type="checkbox" id="select-all" onclick="toggleAll(this)"></th>
+        <th>ID</th>
+        <th>Order #</th>
+        <th>Total</th>
+        <th>Time</th>
+        <th>Items</th>
+        <th>❌</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for order in orders %}
+      <tr>
+        <td><input type="checkbox" name="delete_ids" value="{{ order.id }}"></td>
+        <td>{{ order.id }}</td>
+        <td>{{ order.display_number }}</td>
+        <td>£{{ '%.2f'|format(order.total) }}</td>
+        <td>{{ order.timestamp_pretty }}</td>
+        <td>
+          {% for item in order['items'] %}
+            {{ item.item }} (£{{ '%.2f'|format(item.price) }})<br>
+          {% endfor %}
+        </td>
+        <td>
+          <!-- single-delete button now overrides the form action -->
+          <button type="submit"
+                  formaction="{{ url_for('delete_order', order_id=order.id) }}"
+                  formmethod="post"
+                  onclick="return confirm('Delete this single order?');"
+                  class="btn btn-danger btn-sm">
+            🗑
+          </button>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
 
-    <button type="submit" class="delete-multi">🗑 Delete Selected Orders</button>
-  </form>
+  <!-- bulk-delete lives here in the same form -->
+  <button type="submit" class="delete-multi" style="margin-top:20px;">
+    🗑 Delete Selected Orders
+  </button>
+</form>
+
+
 
   <form method="post" action="/admin/reset_db" style="margin-top:30px;">
     <h2 style="margin-top:40px;">⚠️ Full Reset</h2>

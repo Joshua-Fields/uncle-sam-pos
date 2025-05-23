@@ -45,7 +45,7 @@ function loadReport() {
 
       renderOrdersByHourChart(data.orders_by_hour);
       renderComboChart(data.total_orders, data.combo_count);
-      renderLemonadeChart(data.total_orders, data.lemonade_upgrades);
+      renderLemonadeChart(data.combo_count, data.lemonade_upgrades);
       renderTopItemsChart(data.most_popular);
     });
 
@@ -99,19 +99,21 @@ function renderComboChart(totalOrders, comboCount) {
   });
 }
 
-function renderLemonadeChart(totalOrders, lemonadeUpgrades) {
+function renderLemonadeChart(comboCount, lemonadeUpgrades) {
   const ctx = document.getElementById('lemonadeChart').getContext('2d');
   if (window.lemonadeChart instanceof Chart) {
-  window.lemonadeChart.destroy();
-}
-
+    window.lemonadeChart.destroy();
+  }
 
   window.lemonadeChart = new Chart(ctx, {
     type: 'doughnut',
     data: {
       labels: ['Regular Combos', 'Lemonade Upgrades'],
       datasets: [{
-        data: [totalOrders - lemonadeUpgrades, lemonadeUpgrades],
+        data: [
+          comboCount - lemonadeUpgrades,  // combos without lemonade
+          lemonadeUpgrades                // combos with lemonade
+        ],
         backgroundColor: ['#FF6384', '#4BC0C0']
       }]
     }
