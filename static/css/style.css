@@ -2,7 +2,7 @@
 
 @font-face {
   font-family: 'IntroRust';
-  src: url('/static/fonts/IntroRust-Baseline.otf') format('opentype');
+  src: url('/static/fonts/IntroRust-BaseLine.otf') format('opentype');
 }
 
 body {
