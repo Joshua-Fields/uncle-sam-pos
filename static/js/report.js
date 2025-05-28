@@ -11,10 +11,32 @@ function loadReport() {
         <h2>📊 Avg Order Value: £${data.avg_order}</h2>
         <h2>🥢 Combos Sold: ${data.combo_count}</h2>
         <h2>🍋 Lemonade Upgrades: ${data.lemonade_upgrades}</h2>
-        <div>
-
+        <div style="text-align:center; margin: 20px 0;">
+          <label for="itemSalesSelect">☑️ Items Sold:</label>
+          <select id="itemSalesSelect">
+            <option value="">Select an item…</option>
+          </select>
+          <div id="itemSalesCount" style="margin-top:8px;font-weight:bold;"></div>
         </div>
       `;
+
+      // Populate and wire up the “Items Sold” dropdown
+      const select = document.getElementById('itemSalesSelect');
+      const display = document.getElementById('itemSalesCount');
+      // reset (in case loadReport is called again)
+      select.innerHTML = '<option value="">Select an item…</option>';
+      Object.entries(data.item_counts).forEach(([item, count]) => {
+        const opt = document.createElement('option');
+        opt.value = item;
+        opt.textContent = `${item} (${count})`;
+        select.appendChild(opt);
+      });
+      select.onchange = () => {
+        const sel = select.value;
+        display.textContent = sel
+          ? `${sel} sold: ${data.item_counts[sel]}`
+          : '';
+      };
 
       const orderList = document.getElementById('order-list');
       orderList.innerHTML = (data.orders || []).map(o => {
@@ -39,18 +61,13 @@ function loadReport() {
         `;
       }).join('');
 
-
-
-
-
       renderOrdersByHourChart(data.orders_by_hour);
       renderComboChart(data.total_orders, data.combo_count);
       renderLemonadeChart(data.combo_count, data.lemonade_upgrades);
       renderTopItemsChart(data.most_popular);
     });
-
-
 }
+
 
 function renderOrdersByHourChart(hourData) {
   const ctx = document.getElementById('ordersByHourChart').getContext('2d');

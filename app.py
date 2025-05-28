@@ -242,6 +242,7 @@ def report_data():
         'avg_order': round(avg_order, 2),
         'combo_count': combo_count,
         'lemonade_upgrades': lemonade_upgrades,
+        'item_counts': item_counts,
         'most_popular': most_popular,
         'orders_by_hour': orders_by_hour,
         'orders': detailed
