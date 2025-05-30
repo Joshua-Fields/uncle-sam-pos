@@ -42,7 +42,11 @@
         <option value="week">This Week</option>
         <option value="all">All Time</option>
       </select>
-
+      <!-- ▼ New location filter -->
+      <label for="locationSelect" style="margin-left:20px;">📍 Location: </label>
+      <select id="locationSelect" onchange="loadReport()">
+        <option value="">All Locations</option>
+      </select>
     </div>
 
     <div style="text-align:center; margin: 20px 0;">

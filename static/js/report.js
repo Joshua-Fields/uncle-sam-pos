@@ -1,9 +1,21 @@
 function loadReport() {
-  const filter = document.getElementById('filter').value;
+  const filter   = document.getElementById('filter').value;
+  const location = document.getElementById('locationSelect').value;
 
-  fetch(`/api/report_data?filter=${filter}`)
+  fetch(`/api/report_data?filter=${filter}&location=${encodeURIComponent(location)}`)
     .then(res => res.json())
     .then(data => {
+      // —— populate Location dropdown ——
+      const locEl = document.getElementById('locationSelect');
+      locEl.innerHTML = '<option value="">All Locations</option>';
+      data.locations.forEach(loc => {
+        const o = document.createElement('option');
+        o.value = loc;
+        o.textContent = loc;
+        if (loc === location) o.selected = true;
+        locEl.appendChild(o);
+      });
+
       const container = document.getElementById('report-container');
       container.innerHTML = `
         <h2>📦 Total Orders: ${data.total_orders}</h2>

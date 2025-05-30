@@ -142,7 +142,9 @@ def save_full_order():
     data = request.get_json() or {}
     ts = datetime.now(timezone.utc).isoformat()
     disp = generate_display_order_number()
+
     full_payload = {
+        'location': data.get('location', 'Unknown'),  # ← new
         'items': data.get('items', []),
         'total_price': data.get('total_price', 0.0),
         'timestamp': ts,
@@ -172,6 +174,7 @@ def report():
 @app.route('/api/report_data')
 def report_data():
     filter_type = request.args.get('filter', 'day')
+    location = request.args.get('location')  # ← new
     now = datetime.now(timezone.utc)
     # Determine filter start timestamp (UTC midnight)
     if filter_type == 'day':
@@ -236,7 +239,15 @@ def report_data():
             'items': items
         })
 
+    # build the full list of distinct locations (for the dropdown)
+    all_locations = sorted({o.get('location', 'Unknown') for o in orders})
+
+    # if a location is selected, filter our orders list
+    if location:
+        orders = [o for o in orders if o.get('location') == location]
+
     return jsonify({
+        'locations': all_locations,  # ← include for front-end
         'total_orders': total_orders,
         'total_revenue': round(total_revenue, 2),
         'avg_order': round(avg_order, 2),

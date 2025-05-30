@@ -102,11 +102,13 @@ function finishOrder() {
   const hasCombo = order.some(i => i.item.includes("Combo"));
   const hasLemonadeUpgrade = order.some(i => i.item.includes("Lemonade")) && hasCombo;
   const orderType = hasCombo ? (hasLemonadeUpgrade ? "combo+lemonade" : "combo") : "standard";
+  const location = document.getElementById('locationSelect').value;
 
   fetch('/save_full_order', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
+      location,
       items: order,
       total_price: total,
       combo: hasCombo,
